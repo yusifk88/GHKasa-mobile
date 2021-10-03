@@ -1,0 +1,19 @@
+{
+  "cwd": "/Users/user/Applications/yekasa",
+  "type": [
+    "web"
+  ],
+  "name": "Yekasa",
+  "framework": "vue",
+  "template": "single-view",
+  "cssPreProcessor": "scss",
+  "bundler": "vite",
+  "theming": {
+    "customColor": true,
+    "color": "#8B39B8",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": false
+  },
+  "customBuild": false
+}
