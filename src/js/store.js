@@ -3,6 +3,7 @@ import { createStore } from 'framework7/lite';
 
 const store = createStore({
   state: {
+      allPosts:[],
       selectedPost:null,
       categories:[
         {

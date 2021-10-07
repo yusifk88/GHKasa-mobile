@@ -1,42 +1,57 @@
 <template>
-  <f7-page ptr @ptr:refresh="getHome" name="home" :page-content="false">
-    <!-- Top Navbar -->
-    <f7-navbar :no-hairline="true" >
-      <f7-nav-left>
-        <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" ></f7-link>
-      </f7-nav-left>
-      <f7-nav-title title="GHKasa"></f7-nav-title>
+  <f7-page :page-content="false">
+<!--    <f7-navbar bg-color="purple" :no-hairline="true" >-->
+<!--      <f7-nav-left>-->
+<!--        <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" ></f7-link>-->
+<!--      </f7-nav-left>-->
+<!--      <f7-nav-title title="GHKasa"></f7-nav-title>-->
 
-      <f7-nav-right>
-        <f7-link class="searchbar-enable" data-searchbar=".searchbar-demo" icon-ios="f7:search" icon-aurora="f7:search" icon-md="material:search"></f7-link>
-      </f7-nav-right>
-      <f7-searchbar
-              class="searchbar-demo"
-              expandable
-              search-container=".search-list"
-              search-in=".item-title"
-              :disable-button="!theme.aurora"
-      ></f7-searchbar>
-    </f7-navbar>
-    <f7-toolbar :scrollable="true" tabbar position="top" bg-color="purple" color="white">
-      <f7-link tab-link="#home-tab" tab-link-active>Home</f7-link>
-      <f7-link  tab-link="#video-tab">Watch</f7-link>
+<!--      <f7-nav-right>-->
+<!--        <f7-link class="searchbar-enable" data-searchbar=".searchbar-demo" icon-ios="f7:search" icon-aurora="f7:search" icon-md="material:search"></f7-link>-->
+<!--      </f7-nav-right>-->
+<!--      <f7-searchbar-->
+<!--              class="searchbar-demo"-->
+<!--              expandable-->
+<!--              search-container=".search-list"-->
+<!--              search-in=".item-title"-->
+<!--              :disable-button="!theme.aurora"-->
+<!--      ></f7-searchbar>-->
+<!--    </f7-navbar>-->
+
+
+      <f7-toolbar
+            :no-shadow="true"
+            :no-hairline="true"
+            :scrollable="true"
+            tabbar
+            top
+            bg-color="purple"
+            color="white"
+            >
+
+      <f7-link tab-link="#tab-1" text-color="white" tab-link-active>HOME</f7-link>
       <f7-link
+              text-color="white"
               :tab-link="'#tab-'+category.id"
-              v-for="category in store.state.categories"
               :key="category.id"
-      >
-        {{category.name}}</f7-link>
+              v-for="category in store.state.categories"
+      >{{category.name.toUpperCase()}}</f7-link>
+
     </f7-toolbar>
 
-    <f7-tabs swipeable>
-      <f7-tab id="home-tab" class="page-content" tab-active>
+    <f7-tabs animated swipeable>
+      <f7-tab
+              id="tab-1"
+              class="page-content"
+              tab-active
+      >
 
-        <f7-swiper :grabCursor="true" :effect="'cards'" :slides-per-view="1">
+
+        <f7-swiper>
         <f7-swiper-slide v-if="news.length" v-for="item in news" :key="item.id">
 
 
-        <f7-card  >
+        <f7-card>
           <f7-card-content :padding="false">
             <div :style="{backgroundImage: `url('${item.jetpack_featured_media_url}')` ,
             height: '300px',backgroundRepeat: 'no-repeat',
@@ -56,8 +71,7 @@
               >
 
                 <span style="position: absolute; bottom: 0;" >
-                {{item.title.rendered}}
-                <br/>
+                    <h5 style="margin-bottom: 0; font-weight: bolder;">{{item.title.rendered}}</h5>
                 <small :style="{opacity: 0.7}">{{item.date_gmt}}</small>
 
                 </span>
@@ -70,13 +84,15 @@
         </f7-swiper-slide>
     </f7-swiper>
 
+          <watch-component></watch-component>
+
         <f7-block-title>Recent Posts</f7-block-title>
         <loading-component :count="10" v-if="loading"></loading-component>
         <f7-list media-list class="search-list" v-else>
           <f7-list-item
                   link="#"
                   @click="viewPost(news)"
-                  v-for="news in other_news"
+                  v-for="news in store.state.allPosts"
                   :key="news.id"
                   :title="news.title.rendered"
                   :subtitle="news.date_gmt"
@@ -90,21 +106,19 @@
 
       </f7-tab>
 
-         <f7-tab id="video-tab" class="page-content">
-
-          <h1>tab 2</h1>
-      </f7-tab>
-
-
       <f7-tab
-              v-for="category in store.state.categories"
-              :key="category.id"
-              :id="'tab-'+category.id"
-              class="page-content"
-      >
 
-          <h1>{{category.name}} Tab</h1>
+        :id="'tab-'+category.id"
+        class="page-content"
+        :key="category.id"
+        v-for="category in store.state.categories"
+
+      >
+        <post-list-component @postSelected="viewPost" :category_id="category.id"></post-list-component>
+
       </f7-tab>
+
+
 
     </f7-tabs>
 
@@ -119,11 +133,15 @@
   import axios from "axios";
   import LoadingComponent from "../components/loadingComponent.vue";
   import store from "../js/store";
+  import PostListComponent from "../components/postListComponent.vue";
+  import WatchComponent from "../components/watchComponent.vue";
   export default {
     props: {
       f7router: Object,
     },
     components:{
+        WatchComponent,
+      PostListComponent,
       LoadingComponent,
       tag
     },
@@ -143,7 +161,7 @@
     methods:{
       viewPost(post){
         this.store.state.selectedPost = post;
-        this.f7router.navigate('/about/')
+        this.f7router.navigate('/about/'+post.id)
       },
       getLatestPosts(){
         axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=3')
@@ -152,11 +170,9 @@
         })
       },
       getHome(){
-        this.loading=true;
-        axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=30')
+        axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=100')
                 .then(res=>{
-                  this.other_news = res.data;
-                  this.loading=false;
+                  this.store.state.allPosts = res.data;
                 })
       }
     },
@@ -170,14 +186,10 @@
 <style scoped>
   .bottom-shade{
     width:100%;
+      -webkit-box-shadow: inset 0px -149px 34px 0px rgba(0,0,0,0.58);
+      -moz-box-shadow: inset 0px -149px 34px 0px rgba(0,0,0,0.58);
+      box-shadow: inset 0px -149px 34px 0px rgba(0,0,0,0.58);
   }
-  .bottom-shade:before {
-    content: "";
 
-    background-image: linear-gradient(
-    rgba(0, 0, 0, 0.0) 0%,
-    rgb(0, 0, 0) 100%
-    );
-  };
 
 </style>

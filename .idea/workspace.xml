@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0c93e497-9028-47da-a5a5-5672c8d1c4a4" name="Default Changelist" comment="" />
+    <list default="true" id="0c93e497-9028-47da-a5a5-5672c8d1c4a4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/postListComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/watchComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/about.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/about.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,7 +28,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1yxsvdHCKWnhbFoUIs3RWgOpffK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -41,7 +54,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1633204806218</updated>
-      <workItem from="1633204813445" duration="21346000" />
+      <workItem from="1633204813445" duration="21688000" />
+      <workItem from="1633389727829" duration="11223000" />
+      <workItem from="1633557054975" duration="9016000" />
     </task>
     <servers />
   </component>

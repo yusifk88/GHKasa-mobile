@@ -47,14 +47,17 @@
 
       onMounted(() => {
         f7ready(() => {
+          axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=50')
+            .then(res=>{
+              store.state.allPosts=res.data;
+            })
 
           axios.get('https://ghkasa.com/wp-json/wp/v2/categories')
                   .then(res=>{
                   console.log(res.data);
-                  store.state.categories=res.data;
+                 // store.state.categories=res.data;
 
                   })
-
 
         });
       });
