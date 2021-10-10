@@ -1,14 +1,51 @@
 <template>
-  <f7-app v-bind="f7params" >
+  <f7-app v-bind="f7params" :theme-dark="darkMode" >
 
   <!-- Left panel with cover effect-->
-  <f7-panel left cover>
+  <f7-panel right :swipe="true" :swipe-active-area="20" >
+    <f7-card
+            :no-shadow="true"
+             :no-border="true"
+            class="bg-color-purple"
+            style="margin:0 !important; padding:0 !important; border-radius: unset !important;"
+    >
+      <f7-card-content   :style="{width: '100%'}">
+
+        <img src="/icons/gh-kasa-ankasa.png" style="width: 200px;" />
+
+      </f7-card-content>
+    </f7-card>
     <f7-view>
-      <f7-page>
-        <f7-navbar title="Left Panel"></f7-navbar>
-        <f7-block>Left panel content goes here</f7-block>
+      <f7-page style="height: 90vh">
+        <f7-list simple-list>
+          <f7-list-item>
+            <span>Dark Mode</span>
+            <f7-toggle
+
+                    @change="themeToggleChanged"
+                    :checked="darkMode"
+            ></f7-toggle>
+          </f7-list-item>
+        </f7-list>
+
+
+      <f7-list >
+        <f7-list-item title="About GHKasa">
+
+        </f7-list-item>
+        <f7-list-item title="John Doe">
+
+        </f7-list-item>
+        <f7-list-item title="Jenna Smith">
+
+        </f7-list-item>
+      </f7-list>
+
       </f7-page>
+
     </f7-view>
+
+
   </f7-panel>
 
 
@@ -47,10 +84,13 @@
 
       onMounted(() => {
         f7ready(() => {
-          axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=50')
-            .then(res=>{
-              store.state.allPosts=res.data;
-            })
+          // store.state.loading=true;
+          // axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=30')
+          //   .then(res=>{
+          //     store.state.allPosts=res.data;
+          //     store.state.loading=false;
+          //
+          //   })
 
           axios.get('https://ghkasa.com/wp-json/wp/v2/categories')
                   .then(res=>{
@@ -62,10 +102,26 @@
         });
       });
 
+
+
       return {
         f7params,
 
       }
+    },
+    data(){
+      return{
+        darkMode:false
+      }
+    },
+
+    methods:{
+      themeToggleChanged(){
+
+       this.darkMode=!this.darkMode;
+
+  }
     }
+
   }
 </script>

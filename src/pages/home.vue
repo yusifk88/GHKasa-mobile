@@ -1,43 +1,46 @@
 <template>
   <f7-page :page-content="false">
-<!--    <f7-navbar bg-color="purple" :no-hairline="true" >-->
-<!--      <f7-nav-left>-->
-<!--        <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" ></f7-link>-->
-<!--      </f7-nav-left>-->
-<!--      <f7-nav-title title="GHKasa"></f7-nav-title>-->
 
-<!--      <f7-nav-right>-->
-<!--        <f7-link class="searchbar-enable" data-searchbar=".searchbar-demo" icon-ios="f7:search" icon-aurora="f7:search" icon-md="material:search"></f7-link>-->
-<!--      </f7-nav-right>-->
-<!--      <f7-searchbar-->
-<!--              class="searchbar-demo"-->
-<!--              expandable-->
-<!--              search-container=".search-list"-->
-<!--              search-in=".item-title"-->
-<!--              :disable-button="!theme.aurora"-->
-<!--      ></f7-searchbar>-->
-<!--    </f7-navbar>-->
+      <f7-navbar :no-hairline="true" >
+          <f7-nav-title title="GHKasa.com"></f7-nav-title>
+          <f7-nav-right>
+              <f7-link panel-open="right" icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" ></f7-link>
+          </f7-nav-right>
+
+<!--          <f7-nav-right>-->
+<!--              <f7-link class="searchbar-enable" data-searchbar=".searchbar-demo" icon-ios="f7:search" icon-aurora="f7:search" icon-md="material:search"></f7-link>-->
+<!--          </f7-nav-right>-->
+<!--          <f7-searchbar-->
+<!--                  class="searchbar-demo"-->
+<!--                  expandable-->
+<!--                  search-container=".search-list"-->
+<!--                  search-in=".item-title"-->
+<!--                  :disable-button="!theme.aurora"-->
+<!--          ></f7-searchbar>-->
+      </f7-navbar>
+
 
 
       <f7-toolbar
-            :no-shadow="true"
-            :no-hairline="true"
-            :scrollable="true"
-            tabbar
-            top
-            bg-color="purple"
-            color="white"
-            >
+              :no-shadow="true"
+              :no-hairline="true"
+              :scrollable="true"
+              tabbar
+              top
+              bg-color="purple"
+              color="white"
+      >
 
-      <f7-link tab-link="#tab-1" text-color="white" tab-link-active>HOME</f7-link>
-      <f7-link
-              text-color="white"
-              :tab-link="'#tab-'+category.id"
-              :key="category.id"
-              v-for="category in store.state.categories"
-      >{{category.name.toUpperCase()}}</f7-link>
+          <f7-link tab-link="#tab-1" text-color="white" tab-link-active>HOME</f7-link>
+          <f7-link
+                  text-color="white"
+                  :tab-link="'#tab-'+category.id"
+                  :key="category.id"
+                  v-for="category in store.state.categories"
+          >{{category.name.toUpperCase()}}</f7-link>
 
-    </f7-toolbar>
+      </f7-toolbar>
+
 
     <f7-tabs animated swipeable>
       <f7-tab
@@ -71,8 +74,8 @@
               >
 
                 <span style="position: absolute; bottom: 0;" >
-                    <h5 style="margin-bottom: 0; font-weight: bolder;">{{item.title.rendered}}</h5>
-                <small :style="{opacity: 0.7}">{{item.date_gmt}}</small>
+                    <h2 style="margin-bottom: 0; font-weight: bolder;" v-html="item.title.rendered"></h2>
+                <small :style="{opacity: 0.8}">{{item.date_gmt}}</small>
 
                 </span>
              </f7-card-header>
@@ -87,7 +90,7 @@
           <watch-component></watch-component>
 
         <f7-block-title>Recent Posts</f7-block-title>
-        <loading-component :count="10" v-if="loading"></loading-component>
+        <loading-component :count="10" v-if="store.state.loading"></loading-component>
         <f7-list media-list class="search-list" v-else>
           <f7-list-item
                   link="#"
@@ -104,6 +107,10 @@
           </f7-list-item>
         </f7-list>
 
+          <p v-if="error">{{error}}</p>
+
+
+
       </f7-tab>
 
       <f7-tab
@@ -114,13 +121,18 @@
         v-for="category in store.state.categories"
 
       >
-        <post-list-component @postSelected="viewPost" :category_id="category.id"></post-list-component>
+        <post-list-component
+                @postSelected="viewPost"
+                :category_id="category.id"
+                :category="category"
+        ></post-list-component>
 
       </f7-tab>
 
 
 
     </f7-tabs>
+
 
 
 
@@ -153,7 +165,8 @@
         store,
         news:[],
         other_news:[],
-        loading:false
+        loading:false,
+          error:null
 
       }
     },
@@ -170,10 +183,16 @@
         })
       },
       getHome(){
-        axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=100')
+          store.state.loading=true;
+        axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=30')
                 .then(res=>{
                   this.store.state.allPosts = res.data;
+                    store.state.loading=false;
+
                 })
+          .catch(error=>{
+              this.error = error;
+          })
       }
     },
     mounted() {

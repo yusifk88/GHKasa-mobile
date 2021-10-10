@@ -1,5 +1,5 @@
 <template>
-    <f7-list>
+    <f7-list style="width:100%">
     <f7-list-item
             v-for="n in count"
             :key="n"

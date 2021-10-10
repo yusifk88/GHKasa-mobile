@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c93e497-9028-47da-a5a5-5672c8d1c4a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/postListComponent.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/watchComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/icons/gh kasa ankasa1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/icons/gh-kasa-ankasa.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/app.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/loadingComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/loadingComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/postListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/postListComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/js/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/about.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/about.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home.vue" afterDir="false" />
@@ -41,8 +44,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/icons" />
     <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/icons" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -56,11 +64,18 @@
       <updated>1633204806218</updated>
       <workItem from="1633204813445" duration="21688000" />
       <workItem from="1633389727829" duration="11223000" />
-      <workItem from="1633557054975" duration="9016000" />
+      <workItem from="1633557054975" duration="9103000" />
+      <workItem from="1633820827536" duration="18685000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="89" y="160" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1633841039475">
+      <screen x="0" y="25" width="1280" height="952" />
+    </state>
+    <state x="89" y="160" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1280.952@0.25.1280.952" timestamp="1633841039475" />
   </component>
 </project>

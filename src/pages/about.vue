@@ -26,7 +26,7 @@
 
           <f7-list-item
                   link="#"
-                  @click="viewPost(news)"
+                    @click="viewPost(news.id)"
                   v-for="news in store.state.selectedPost['jetpack-related-posts']"
                   :key="news.id"
                   :title="news.title"
@@ -62,7 +62,20 @@
   import axios from "axios";
   export default {
       props: {
+          f7route: Object,
           f7router: Object,
+      },
+      computed:{
+        pagId(){
+            return this.f7route.params.postId
+        }
+      },
+      watch:{
+        pagId() {
+            alert(this.pagId);
+            this.viewPost(this.pagId);
+
+        }
       },
     data(){
       return{
@@ -70,20 +83,25 @@
       }
     },
       methods:{
-        viewPost(post){
+          gotoRoute(postId){
+              this.f7router.navigate('/about/'+postId)
+          },
+        viewPost(postId){
+
 
             const all = store.state.allPosts;
             const selectedPost = all.find(p=>{
-               return p.id === post.id;
+               return p.id === postId;
             });
 
             if (selectedPost) {
                 this.store.state.selectedPost = selectedPost;
                 this.f7router.navigate('/about/' + selectedPost.id);
             }else {
+
                 f7.dialog.preloader("Loading...");
 
-                axios.get('https://ghkasa.com/wp-json/wp/v2/posts/'+post.id)
+                axios.get('https://ghkasa.com/wp-json/wp/v2/posts/'+postId)
                 .then(res=>{
                     this.store.state.selectedPost = res.data;
                     this.store.state.allPosts.push(res.data);
@@ -99,9 +117,7 @@
 
         }
       },
-      mounted() {
-         console.log(store.state.selectedPost['jetpack-related-posts']);
-      }
+
   }
 </script>
 <style >
