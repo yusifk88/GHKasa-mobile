@@ -1,0 +1,9 @@
+{
+	"appId": "com.ghkasa.com",
+	"appName": "GHKasa",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"server": {
+		"hostname": "localhost"
+	}
+}

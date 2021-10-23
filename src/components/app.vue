@@ -66,7 +66,7 @@
   import routes from '../js/routes.js';
   import store from '../js/store';
   import axios from "axios";
-
+  import { App } from '@capacitor/app';
   export default {
     setup() {
 
@@ -84,18 +84,17 @@
 
       onMounted(() => {
         f7ready(() => {
-          // store.state.loading=true;
-          // axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=30')
-          //   .then(res=>{
-          //     store.state.allPosts=res.data;
-          //     store.state.loading=false;
-          //
-          //   })
 
+          App.addListener('backButton', () => {
+              f7.views.main.router.back();
+
+          });
+
+           store.state.loading=true;
           axios.get('https://ghkasa.com/wp-json/wp/v2/categories')
                   .then(res=>{
                   console.log(res.data);
-                 // store.state.categories=res.data;
+                  store.state.categories=res.data;
 
                   })
 
