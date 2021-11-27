@@ -2,11 +2,11 @@
   <f7-app v-bind="f7params" :theme-dark="darkMode" >
 
   <!-- Left panel with cover effect-->
-  <f7-panel right :swipe="true" :swipe-active-area="20" >
+  <f7-panel left :swipe="true" :swipe-active-area="20" >
     <f7-card
             :no-shadow="true"
              :no-border="true"
-            class="bg-color-purple"
+            class="bg-color-yellow"
             style="margin:0 !important; padding:0 !important; border-radius: unset !important;"
     >
       <f7-card-content   :style="{width: '100%'}">
@@ -33,10 +33,16 @@
         <f7-list-item title="About GHKasa">
 
         </f7-list-item>
-        <f7-list-item title="John Doe">
+        <f7-list-item title="Facebook">
 
         </f7-list-item>
-        <f7-list-item title="Jenna Smith">
+        <f7-list-item title="Twitter">
+
+        </f7-list-item>
+        <f7-list-item title="Instagram">
+
+        </f7-list-item>
+        <f7-list-item title="Youtube">
 
         </f7-list-item>
       </f7-list>
@@ -83,8 +89,8 @@
 
 
       onMounted(() => {
-        f7ready(() => {
 
+        f7ready(() => {
           App.addListener('backButton', () => {
               f7.views.main.router.back();
 
@@ -110,7 +116,17 @@
     },
     data(){
       return{
-        darkMode:false
+        darkMode:localStorage.theme==='dark'
+      }
+    },
+    watch:{
+      darkMode(){
+       localStorage.theme=this.darkMode?'dark':'light';
+      }
+    },
+    computed:{
+      appTheme(){
+       return  localStorage.theme==='dark';
       }
     },
 

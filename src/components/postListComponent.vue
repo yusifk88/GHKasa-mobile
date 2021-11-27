@@ -61,10 +61,20 @@
                this.$emit('postSelected',post);
             },
             getFirst(){
+
+              const key = "list_"+this.category_id;
+              const localist = localStorage.getItem(key);
+              if (localist){
+                this.posts = JSON.parse(localist);
+              }else {
                 this.loading=true;
+
+              }
                 axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page='+this.per_page+'&categories='+this.category_id)
                     .then(res=>{
-                        this.posts= res.data;
+                      localStorage.setItem(key,JSON.stringify(res.data));
+                      this.posts= res.data;
+
                         this.loading=false;
 
                     })

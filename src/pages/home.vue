@@ -1,11 +1,14 @@
 <template>
   <f7-page :page-content="false">
 
-      <f7-navbar :no-hairline="true" >
-          <f7-nav-title title="GHKasa.com"></f7-nav-title>
-          <f7-nav-right>
-              <f7-link panel-open="right" icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" ></f7-link>
-          </f7-nav-right>
+      <f7-navbar :no-hairline="true" inner-class="bg-color-yellow" >
+          <f7-nav-left>
+              <f7-link text-color="black" panel-open="left" icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" ></f7-link>
+          </f7-nav-left>
+        <f7-nav-title>
+          <img src="/icons/gh_kasa_ankasa1.png" style="width: 100px;" />
+
+        </f7-nav-title>
 
 <!--          <f7-nav-right>-->
 <!--              <f7-link class="searchbar-enable" data-searchbar=".searchbar-demo" icon-ios="f7:search" icon-aurora="f7:search" icon-md="material:search"></f7-link>-->
@@ -27,13 +30,13 @@
               :scrollable="true"
               tabbar
               top
-              bg-color="purple"
-              color="white"
+              bg-color="yellow"
+              color="black"
       >
 
-          <f7-link tab-link="#tab-1" text-color="white" tab-link-active>HOME</f7-link>
+          <f7-link tab-link="#tab-1" text-color="black" tab-link-active>HOME</f7-link>
           <f7-link
-                  text-color="white"
+                  text-color="black"
                   :tab-link="'#tab-'+category.id"
                   :key="category.id"
                   v-for="category in store.state.categories"
@@ -147,6 +150,8 @@
   import store from "../js/store";
   import PostListComponent from "../components/postListComponent.vue";
   import WatchComponent from "../components/watchComponent.vue";
+  import { Toast } from '@capacitor/toast';
+
   export default {
     props: {
       f7router: Object,
@@ -172,22 +177,46 @@
     },
 
     methods:{
+     async showToast(message){
+          await Toast.show({
+            text: message,
+            position:'top'
+          });
+
+      },
       viewPost(post){
         this.store.state.selectedPost = post;
         this.f7router.navigate('/about/'+post.id)
       },
       getLatestPosts(){
+        const local = localStorage.latestPost;
+        if (local){
+          this.news = JSON.parse(local);
+        }
+
+
         axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=3')
         .then(res=>{
           this.news = res.data;
+        localStorage.latestPost = JSON.stringify(res.data);
         })
       },
       getHome(){
+        const local = localStorage.localList;
+        if (local){
+          this.store.state.allPosts = JSON.parse(local);
+        }else {
           store.state.loading=true;
+
+        }
+
         axios.get('https://ghkasa.com/wp-json/wp/v2/posts?per_page=30')
                 .then(res=>{
                   this.store.state.allPosts = res.data;
-                    store.state.loading=false;
+                  localStorage.localList = JSON.stringify(res.data);
+                  this.showToast("New posts are available");
+                  store.state.loading=false;
+
 
                 })
           .catch(error=>{

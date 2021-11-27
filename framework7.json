@@ -10,10 +10,10 @@
   "bundler": "vite",
   "theming": {
     "customColor": true,
-    "color": "#8B39B8",
+    "color": "#FFD200",
     "darkTheme": false,
     "iconFonts": true,
-    "fillBars": false
+    "fillBars": true
   },
   "customBuild": false
 }

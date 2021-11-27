@@ -41,9 +41,15 @@
               window.open(link);
             },
             getVideos(){
+              const localVideos = localStorage.localVideos;
+              if (localVideos){
+                this.videos = JSON.parse(localVideos);
+              }
+
                 axios.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyDdZtQpJZajlNXFdwSqBCKPsixo3Sc_gS4&part=snippet&channelId=UC16nG9OjCsvabRLoaVj5T5A&order=date')
                     .then(res=>{
-                        this.videos = res.data.items;
+                      localStorage.localVideos = JSON.stringify(res.data.items);
+                      this.videos = res.data.items;
                         console.log(res.data)
                     })
 
